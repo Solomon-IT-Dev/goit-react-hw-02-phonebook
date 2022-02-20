@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
+import initialContacts from 'data/initialContacts';
 import AppName from 'components/AppName';
 import ContactForm from 'components/ContactForm';
 import SectionName from 'components/SectionName';
 import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';
 import { nanoid } from 'nanoid';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import { AppContainer } from './App.styled';
 
 class App extends Component {
   state = {
-    contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    ],
+    contacts: initialContacts,
     filter: '',
   };
 
@@ -24,10 +22,23 @@ class App extends Component {
       name,
       number,
     };
-    
+    const { contacts } = this.state;
+    const normalizedName = name.toLowerCase();
+
+    if (contacts.find(contact => contact.name.toLowerCase() === normalizedName)) {
+      this.showNotification('This contact name is already in your phonebook');
+      return;
+    }
+
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
     }))
+  };
+
+  deleteContact = (contactId) => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId)
+    }));
   };
 
   changeFilter = evt => {
@@ -43,6 +54,10 @@ class App extends Component {
     );
   };
 
+  showNotification = (message) => {
+    toast.info(message);
+  };
+
   render() {
     const { contacts, filter } = this.state;
     const totalContactCount = contacts.length;
@@ -54,7 +69,8 @@ class App extends Component {
         <ContactForm onSubmit={this.addContactToList} />
         <SectionName title='Contacts' />
         <Filter label='Find contacts by name' value={filter} onChange={this.changeFilter} />
-        <ContactList contacts={visibleContacts} contactsAmount={totalContactCount} />
+        <ContactList contacts={visibleContacts} contactsAmount={totalContactCount} onDeleteContact={this.deleteContact} />
+        <ToastContainer />
       </AppContainer> 
     );
   };

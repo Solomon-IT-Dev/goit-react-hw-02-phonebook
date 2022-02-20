@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 import ContactItem from 'components/ContactItem';
 
-export default function ContactList({ contacts, contactsAmount }) {
+export default function ContactList({ contacts, contactsAmount, onDeleteContact }) {
     return (
-        {contactsAmount}
+        contactsAmount > 0
         ? <>
+            <p>Total contacts amount: <span>{contactsAmount}</span></p>
             <ul>
                 {contacts.map(({ id, name, number }) =>
                     <li key={id}>
-                        <ContactItem id={id} name={name} number={number} />
+                        <ContactItem id={id} name={name} number={number} onDeleteContact={onDeleteContact} />
                     </li>)}
             </ul>
-            <p>Total contacts amount: <span>{contactsAmount}</span></p>
           </>
         : <p>There are no contacts in your phonebook</p>
     );
@@ -26,4 +26,5 @@ ContactList.propTypes = {
         })
     ),
     contactsAmount: PropTypes.number.isRequired,
+    onDeleteContact: PropTypes.func.isRequired,
 };
