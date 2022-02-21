@@ -28,11 +28,11 @@ class App extends Component {
     if (contacts.find(contact => contact.name.toLowerCase() === normalizedName)) {
       this.showNotification('This contact name is already in your phonebook');
       return;
-    }
+    };
 
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
-    }))
+    }));
   };
 
   deleteContact = (contactId) => {
