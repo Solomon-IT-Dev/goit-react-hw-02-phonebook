@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
-import { FormWrapper } from './ContactForm.styled';
+import { FormWrapper, ContactSubmitForm, FormInputLabel, FormInput, FormSubmitBtn } from './ContactForm.styled';
 
 const FORM_INITIAL_STATE = {
   name: '',
@@ -39,12 +39,13 @@ class ContactForm extends Component {
 
     return (
       <FormWrapper>
-            <form onSubmit={this.onContactFormSubmit}>
-                <label htmlFor={this.nameInputId}>
+            <ContactSubmitForm onSubmit={this.onContactFormSubmit}>
+                <FormInputLabel htmlFor={this.nameInputId}>
                     Name
-                    <input
+                    <FormInput
                     type="text"
                     name="name"
+                    placeholder="Type name here"
                     pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                     title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                     value={name}
@@ -52,12 +53,13 @@ class ContactForm extends Component {
                     id={this.nameInputId}
                     required
                     />
-                </label>
-                <label htmlFor={this.numberInputId}>
+                </FormInputLabel>
+                <FormInputLabel htmlFor={this.numberInputId}>
                     Number
-                    <input
+                    <FormInput
                     type="tel"
                     name="number"
+                    placeholder="Type number here"
                     pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     value={number}
@@ -65,9 +67,9 @@ class ContactForm extends Component {
                     id={this.numberInputId}
                     required
                     />
-                </label>
-                <button type="submit">Add contact</button>
-          </form>
+                </FormInputLabel>
+                <FormSubmitBtn type="submit">Add contact</FormSubmitBtn>
+          </ContactSubmitForm>
       </FormWrapper> 
     );
   };

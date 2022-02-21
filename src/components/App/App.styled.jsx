@@ -4,5 +4,6 @@ export const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 90px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 `;

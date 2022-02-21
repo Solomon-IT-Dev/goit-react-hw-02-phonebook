@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types';
 import ContactItem from 'components/ContactItem';
+import { TotalContactsText, TotalContactsNum, PhonebookList, ListElement, NotificationText } from './ContactList.styled';
 
 export default function ContactList({ contacts, contactsAmount, onDeleteContact }) {
     return (
         contactsAmount > 0
         ? <>
-            <p>Total contacts amount: <span>{contactsAmount}</span></p>
-            <ul>
+            <TotalContactsText>Contacts amount: <TotalContactsNum>{contactsAmount}</TotalContactsNum></TotalContactsText>
+            <PhonebookList>
                 {contacts.map(({ id, name, number }) =>
-                    <li key={id}>
+                    <ListElement key={id}>
                         <ContactItem id={id} name={name} number={number} onDeleteContact={onDeleteContact} />
-                    </li>)}
-            </ul>
+                    </ListElement>)}
+            </PhonebookList>
           </>
-        : <p>There are no contacts in your phonebook</p>
+        : <NotificationText>There are no contacts in your phonebook</NotificationText>
     );
 };
 

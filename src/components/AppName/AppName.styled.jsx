@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const MainTitle = styled.h1`
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   text-transform: uppercase;
-  color: tomato;
+  color: #3498db;
 `;

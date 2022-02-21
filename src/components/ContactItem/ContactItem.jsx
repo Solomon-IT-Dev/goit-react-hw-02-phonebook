@@ -1,12 +1,18 @@
 import PropTypes from 'prop-types';
 import { FaTrashAlt } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
+import { DeleteBtn } from './ContactItem.styled';
 
 export default function ContactItem({ id, name, number, onDeleteContact }) {
     return (
         <div>
             <p>{name}</p>
             <a href={`tel:${number}`}>{number}</a>
-            <button type='button' onClick={() => onDeleteContact(id)}><FaTrashAlt /></button>
+            <DeleteBtn type='button' onClick={() => onDeleteContact(id)}>
+                <IconContext.Provider value={{ size: "2em" }}>
+                    <FaTrashAlt />
+                </IconContext.Provider>
+            </DeleteBtn>
         </div>
     );
 };
